@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "question": "Do you frequently relive past traumatic events, such as through nightmares or flashbacks?",
+    "type": "binary"
+  },
+  {
+    "id": 2,
+    "question": "Do you hear voices or see things that others do not?",
+    "type": "binary"
+  },
+  {
+    "id": 3,
+    "question": "Do you avoid certain people, places, or situations because they remind you of something painful?",
+    "type": "binary"
+  },
+  {
+    "id": 4,
+    "question": "Do you believe others are watching, controlling, or trying to harm you without clear reason?",
+    "type": "binary"
+  },
+  {
+    "id": 5,
+    "question": "Do you feel emotionally numb or find it hard to express feelings?",
+    "type": "binary"
+  },
+  {
+    "id": 6,
+    "question": "In your own words, describe a moment when you felt detached from reality or people around you.",
+    "type": "text"
+  },
+  {
+    "id": 7,
+    "question": "How do you typically react when you're under stress or fear without an obvious cause?",
+    "type": "text"
+  },
+  {
+    "id": 8,
+    "question": "Can you share a belief you've had that others found unusual or hard to understand?",
+    "type": "text"
+  },
+  {
+    "id": 9,
+    "question": "Describe any difficulties you face when trying to concentrate or remember things.",
+    "type": "text"
+  },
+  {
+    "id": 10,
+    "question": "Explain how your trust in others has affected your day-to-day life.",
+    "type": "text"
+  }
+]

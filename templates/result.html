@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Assessment Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background: linear-gradient(to right, #e8f0fe, #ffffff);
+      display: flex;
+      justify-content: center;
+    }
+
+    .result-box {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #2d3436;
+      text-align: center;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .progress-container {
+      background-color: #e0e0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .progress-bar {
+      height: 22px;
+      background: linear-gradient(to right, #00b894, #0984e3);
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      line-height: 22px;
+    }
+
+    .pdf-link, .retake-btn {
+      display: block;
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .pdf-link a {
+      text-decoration: none;
+      color: #0984e3;
+      font-weight: bold;
+    }
+
+    .pdf-link a:hover {
+      text-decoration: underline;
+    }
+
+    .retake-btn a {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #636e72;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .retake-btn a:hover {
+      background-color: #2d3436;
+    }
+
+    .message {
+      margin-top: 25px;
+      font-size: 16px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+      .result-box {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body class="pt-20">
+  {% include '_header.html' %}
+
+  <div class="result-box">
+    <h2>🧠 Your Mental Health Report</h2>
+  {% if session['user_email'] %} 
+  <p>📩 Your report has been sent to <strong>{{ session['user_email'] }}</strong></p>
+  {% endif %}
+
+    <p><strong>Predicted Disorder:</strong> {{ result }}</p>
+    <p><strong>Severity Score:</strong> {{ severity }} ({{ score }}%)</p>
+
+    <div class="progress-container">
+      <div class="progress-bar" style="width: {{ score }}%;">{{ score }}%</div>
+    </div>
+
+    {% if pdf_link %}
+      <div class="pdf-link">
+        <a href="{{ pdf_link }}" download>📄 Download PDF Report</a>
+      </div>
+    {% endif %}
+
+    <div class="message">
+      {% if score <= 30 %}
+        ✅ You're doing well. Keep monitoring your mental well-being.
+      {% elif score <= 70 %}
+        ⚠️ Moderate distress signs. Consider speaking to a mental health professional.
+      {% else %}
+        🚨 High severity. It's strongly recommended to consult a licensed therapist.
+      {% endif %}
+    </div>
+
+    <div class="retake-btn">
+      <a href="/">🔁 Retake Assessment</a>
+    </div>
+    <a class="button" href="/">🏠 Go to Home</a>
+
+  </div>
+  
+
+</body>
+</html>

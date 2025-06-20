@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🎙️ Record Your Voice - Mental Health Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #c3dafe, #e0f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 400px;
+        }
+
+        h2 {
+            color: #4f46e5;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:disabled {
+            background-color: #a5b4fc;
+            cursor: not-allowed;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #4338ca;
+        }
+
+        audio {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="pt-20">
+  <div class="container">
+      <h2>🎙️ Record Your Voice</h2>
+      <button id="record">Start Recording</button>
+      <button id="stop" disabled>Stop Recording</button>
+
+      <audio id="playback" controls></audio>
+
+      <br>
+      <button id="submit" disabled>Submit</button>
+  </div>
+
+  <script>
+      let mediaRecorder;
+      let audioChunks = [];
+
+      document.getElementById("record").onclick = async () => {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.start();
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = event => {
+              audioChunks.push(event.data);
+          };
+
+          mediaRecorder.onstop = () => {
+              const blob = new Blob(audioChunks, { type: 'audio/wav' });
+              const audioUrl = URL.createObjectURL(blob);
+              document.getElementById("playback").src = audioUrl;
+
+              document.getElementById("submit").onclick = () => {
+                  const formData = new FormData();
+                  formData.append("audio", blob, "recording.wav");
+
+                  fetch("/audio/submit", {
+                      method: "POST",
+                      body: formData
+                  }).then(() => {
+                      window.location.href = "/audio/result";
+                  });
+              };
+
+              document.getElementById("submit").disabled = false;
+          };
+
+          document.getElementById("record").disabled = true;
+          document.getElementById("stop").disabled = false;
+      };
+
+      document.getElementById("stop").onclick = () => {
+          mediaRecorder.stop();
+          document.getElementById("record").disabled = false;
+          document.getElementById("stop").disabled = true;
+      };
+  </script>
+</body>
+</html>

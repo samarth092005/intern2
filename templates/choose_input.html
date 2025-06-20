@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <title>Choose Input Method</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+    }
+    .fadeInUp {
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start pt-20 px-6">
+  {% include '_header.html' %}
+  <h2 class="text-3xl font-semibold text-teal-800 mb-12 fadeInUp" style="animation-delay: 0.2s;">
+    Choose Your Preferred Input Method
+  </h2>
+
+  <div class="flex flex-wrap justify-center gap-10 max-w-4xl w-full">
+    <div
+      class="option-card cursor-pointer bg-white rounded-3xl shadow-lg w-52 h-44 flex flex-col justify-center items-center text-center transition-transform duration-300 hover:-translate-y-4 hover:bg-teal-100 border-2 border-transparent hover:border-teal-500 fadeInUp"
+      style="animation-delay: 0.4s;"
+      onclick="window.location.href='/form'"
+      role="button"
+      tabindex="0"
+      aria-label="Text Input"
+    >
+      <div class="text-6xl mb-4 select-none">📝</div>
+      <div class="text-xl font-semibold text-gray-800 select-none">Text Input</div>
+    </div>
+
+    <div
+      class="option-card cursor-pointer bg-white rounded-3xl shadow-lg w-52 h-44 flex flex-col justify-center items-center text-center transition-transform duration-300 hover:-translate-y-4 hover:bg-teal-100 border-2 border-transparent hover:border-teal-500 fadeInUp"
+      style="animation-delay: 0.6s;"
+      onclick="window.location.href='/audio'"
+      role="button"
+      tabindex="0"
+      aria-label="Audio Input"
+    >
+      <div class="text-6xl mb-4 select-none">🎤</div>
+      <div class="text-xl font-semibold text-gray-800 select-none">Audio Input</div>
+    </div>
+
+    <div
+      class="option-card cursor-not-allowed bg-gray-100 rounded-3xl shadow-lg w-52 h-44 flex flex-col justify-center items-center text-center border-2 border-gray-300 opacity-70 select-none fadeInUp"
+      style="animation-delay: 0.8s;"
+      onclick="alert('Pictorial Input coming soon')"
+      role="button"
+      tabindex="0"
+      aria-label="Pictorial Input Coming Soon"
+    >
+      <div class="text-6xl mb-4">🖼️</div>
+      <div class="text-xl font-semibold text-gray-500">Pictorial Input (Coming Soon)</div>
+    </div>
+  </div>
+</body>
+</html>

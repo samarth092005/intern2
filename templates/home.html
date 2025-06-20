@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Med Nexus - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, #6b46c1, #b794f4, #6b46c1);
+      background-size: 600% 600%;
+      animation: gradientMove 15s ease infinite;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .fadeInUp {
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6 pt-20">
+  {% include '_header.html' %}
+  <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-10 text-center space-y-6">
+    <h1 class="text-4xl font-bold text-gray-800 fadeInUp" style="animation-delay: 0.2s;">🧠 Welcome to Med Nexus</h1>
+    <p class="text-gray-600 fadeInUp" style="animation-delay: 0.4s;">Your trusted mental health assessment companion.</p>
+
+    <input
+      type="email"
+      id="emailInput"
+      placeholder="Enter your email"
+      required
+      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 fadeInUp"
+      style="animation-delay: 0.6s;"
+    />
+    <button
+      class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 fadeInUp"
+      onclick="startAssessment()"
+      style="animation-delay: 0.8s;"
+    >
+      Start Assessment
+    </button>
+  </div>
+
+  <script>
+    function startAssessment() {
+      const email = document.getElementById("emailInput").value.trim();
+      if (!email) {
+        alert("Please enter your email to continue.");
+        return;
+      }
+
+      fetch("/store-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email }),
+      }).then((response) => {
+        if (response.ok) {
+          window.location.href = "/choose-input";
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
